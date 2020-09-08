@@ -41,6 +41,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import android.app.Activity;
+
 
 public class CordovaWebsocketPlugin extends CordovaPlugin {
     private static final String TAG = "CordovaWebsocketPlugin";
@@ -62,6 +64,8 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
             this.wsSend(args, callbackContext);
         } else if (action.equals("wsClose")) {
             this.wsClose(args, callbackContext);
+        } else if (action.equals("foreground")) {
+            this.forground( callbackContext);
         }
         return true;
     }
@@ -130,6 +134,10 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
         }
+    }
+
+    private void forground(CallbackContext recvCallbackContext) {
+        cordova.getActivity().startService(new Intent(cordova.getActivity(), MyService.class));
     }
 
     private class WebSocketAdvanced extends WebSocketListener {

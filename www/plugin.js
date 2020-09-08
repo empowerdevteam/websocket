@@ -28,4 +28,10 @@ var CordovaWebsocketPlugin = {
     }
 };
 
+var CordovaWebsocketPlugin = {
+    function (arg0, success, error) {
+        exec(success, error, PLUGIN_NAME, 'foreground', [])}
+
+};
+
 module.exports = CordovaWebsocketPlugin;
