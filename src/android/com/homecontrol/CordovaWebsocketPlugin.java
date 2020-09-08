@@ -42,6 +42,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import android.app.Activity;
+import android.content.Intent;
 
 
 public class CordovaWebsocketPlugin extends CordovaPlugin {
