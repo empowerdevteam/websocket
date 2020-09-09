@@ -138,11 +138,14 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
     }
 
     private void forground(JSONArray args,CallbackContext recvCallbackContext) {
-
+        try {
         String webSocketId = args.getString(0);
         Intent serviceIntent = new Intent(cordova.getActivity(), MyService.class);
         serviceIntent.putExtra("webSocketId", webSocketId);
         cordova.getActivity().startService(serviceIntent);
+    } catch (JSONException e) {
+        Log.e(TAG, e.getMessage());
+    }
     }
 
     private class WebSocketAdvanced extends WebSocketListener {
