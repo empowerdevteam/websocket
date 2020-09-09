@@ -66,7 +66,7 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
         } else if (action.equals("wsClose")) {
             this.wsClose(args, callbackContext);
         } else if (action.equals("foreground")) {
-            this.forground( callbackContext);
+            this.forground(args, callbackContext);
         }
         return true;
     }
@@ -137,8 +137,12 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
         }
     }
 
-    private void forground(CallbackContext recvCallbackContext) {
-        cordova.getActivity().startService(new Intent(cordova.getActivity(), MyService.class));
+    private void forground(JSONArray args,CallbackContext recvCallbackContext) {
+
+        String webSocketId = args.getString(0);
+        Intent serviceIntent = new Intent(cordova.getActivity(), MyService.class);
+        serviceIntent.putExtra("webSocketId", webSocketId);
+        cordova.getActivity().startService(serviceIntent);
     }
 
     private class WebSocketAdvanced extends WebSocketListener {

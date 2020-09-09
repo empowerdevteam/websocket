@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 
 
@@ -20,6 +21,7 @@ public class MyService extends Service {
     public static final long INTERVAL=10000;//variable to execute services every 10 second
     private Handler mHandler=new Handler(); // run on another Thread to avoid crash
     private Timer mTimer=null;
+    private String webScoket = null;
    
     @Override
     public IBinder onBind(Intent intent) {
@@ -29,7 +31,7 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
-
+        webScoket = intent.getStringExtra("webSocketId");
 
         if(mTimer!=null)
             mTimer.cancel();
@@ -57,7 +59,7 @@ public class MyService extends Service {
                     // display toast at every 10 second
 
 
-                    Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "websocket"+webScoket, Toast.LENGTH_SHORT).show();
                 }
             });
         }
