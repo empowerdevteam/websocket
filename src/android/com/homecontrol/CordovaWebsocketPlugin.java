@@ -140,7 +140,7 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
     private void forground(JSONArray args,CallbackContext recvCallbackContext) {
         try {
         String webSocketId = args.getString(0);
-        Log.i("TAG",""+webSocketId)
+        Log.i("TAG",""+webSocketId);
         Intent serviceIntent = new Intent(cordova.getActivity(), MyService.class);
         serviceIntent.putExtra("webSocketId", webSocketId);
         cordova.getActivity().startService(serviceIntent);
