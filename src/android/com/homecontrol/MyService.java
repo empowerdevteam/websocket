@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
+import android.util.Log;
 
 
 
@@ -17,6 +18,7 @@ import java.util.TimerTask;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class MyService extends Service {
+    private static final String TAG = "CordovaWebsocketService";
    
     public static final long INTERVAL=10000;//variable to execute services every 10 second
     private Handler mHandler=new Handler(); // run on another Thread to avoid crash
@@ -32,6 +34,7 @@ public class MyService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
         webScoket = intent.getStringExtra("webSocketId");
+        Log.i(TAG,""+webScoket);
 
         if(mTimer!=null)
             mTimer.cancel();
