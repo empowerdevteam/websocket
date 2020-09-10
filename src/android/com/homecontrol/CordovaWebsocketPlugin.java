@@ -141,7 +141,7 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
         try {
         String webSocketId = args.getString(0);
         Log.i("TAG",""+webSocketId);
-        Intent serviceIntent = new Intent(cordova.getActivity(), MyService.class);
+        Intent serviceIntent = new Intent(cordova.getActivity(), WebsocketService.class);
         serviceIntent.putExtra("webSocketId", webSocketId);
         cordova.getActivity().startService(serviceIntent);
     } catch (JSONException e) {

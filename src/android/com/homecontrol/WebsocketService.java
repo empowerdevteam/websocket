@@ -17,7 +17,7 @@ import java.util.TimerTask;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-public class MyService extends Service {
+public class WebsocketService extends Service {
     private static final String TAG = "CordovaWebsocketService";
    
     public static final long INTERVAL=10000;//variable to execute services every 10 second
