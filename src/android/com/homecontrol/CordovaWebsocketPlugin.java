@@ -239,6 +239,12 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
                @Override
                public void run() {
                    while (true) {
+                    try {
+                        Thread.sleep(90000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                       
                        try {
                            if (self.webSocket != null) {
                                self.webSocket.close(1000, "Disconnect");
