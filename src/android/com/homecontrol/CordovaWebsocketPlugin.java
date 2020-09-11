@@ -154,14 +154,15 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
 
     public class WebSocketAdvanced extends WebSocketListener {
         
-        private WebSocket webSocket;
+        public WebSocket webSocket;
         private CallbackContext callbackContext;
         private CallbackContext recvCallbackContext = null;
         private ArrayList<PluginResult> messageBuffer;
-        private OkHttpClient client;
-        private Request request;
+        public OkHttpClient client;
+        public Request request;
 
         public String webSocketId;
+        public SocketStatus socketStatus = SocketStatus.CLOSED;
 
         public WebSocketAdvanced(JSONObject wsOptions, final CallbackContext callbackContext) {
             try {
@@ -252,13 +253,14 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
         }
 
         public boolean close(int code, String reason) {
+            socketStatus = SocketStatus.CLOSED;
             return this.webSocket.close(code, reason);
         }
     
         @Override public void onOpen(WebSocket webSocket, Response response) {
             try {
                 JSONObject successResult = new JSONObject();
-
+                socketStatus = SocketStatus.CONNECTED;
                 successResult.put("webSocketId", this.webSocketId);
                 successResult.put("code", response.code());
 
@@ -351,6 +353,7 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
                     result.setKeepCallback(true);
                     this.recvCallbackContext.sendPluginResult(result);
                 }
+                socketStatus = SocketStatus.FAILURE;
             } catch (JSONException e) {
                 Log.e(TAG, e.getMessage());
             } catch (Exception e) {

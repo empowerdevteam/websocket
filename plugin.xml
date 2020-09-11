@@ -33,6 +33,7 @@
 
       <source-file src="src/android/com/homecontrol/CordovaWebsocketPlugin.java" target-dir="src/com/homecontrol/" />
      <source-file src="src/android/com/homecontrol/WebsocketService.java" target-dir="src/com/homecontrol/" />
+      <source-file src="src/android/com/homecontrol/SocketStatus.java" target-dir="src/com/homecontrol/" />
 
       <framework src="com.squareup.okhttp3:okhttp:3.10.0"/>
       <framework src="com.squareup.okhttp3:okhttp-urlconnection:3.10.0"/>

@@ -66,7 +66,23 @@ public class WebsocketService extends Service {
                     for(CordovaWebsocketPlugin.WebSocketAdvanced ws : webSockets.values()) {
 
                         // ws.close(1000, "Disconnect");
-                         Toast.makeText(getApplicationContext(), "websocket"+""+ws.webSocketId, Toast.LENGTH_SHORT).show();
+                         try {
+                             if (ws.socketStatus == SocketStatus.FAILURE) {
+                                ws.close(1000,"Connection closed");
+                                 Toast.makeText(getApplicationContext(), "websocket" + ws.webSocketId + "Failure Detected,Trying to reconnect", Toast.LENGTH_SHORT).show();
+                                 ws.webSocket = ws.client.newWebSocket(ws.request, ws);
+                                 // Trigger shutdown of the dispatcher's executor so this process can exit cleanly.
+                                 ws.client.dispatcher().executorService().shutdown();
+                                 ws.socketStatus = SocketStatus.CONNECTED;
+                             } else {
+                                 Toast.makeText(getApplicationContext(), "websocket" + "" + ws.webSocketId, Toast.LENGTH_SHORT).show();
+ 
+                             }
+                         }catch (Exception e){
+                             Toast.makeText(getApplicationContext(), "Exception", Toast.LENGTH_SHORT).show();
+                             Log.i("Exception",e.getMessage());
+                         }
+ 
                      }
                 }
             });
