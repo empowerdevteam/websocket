@@ -48,11 +48,14 @@ import android.content.Intent;
 public class CordovaWebsocketPlugin extends CordovaPlugin {
     private static final String TAG = "CordovaWebsocketPlugin";
 
-    private Map<String, WebSocketAdvanced> webSockets = new ConcurrentHashMap<String, WebSocketAdvanced>();
+   // private Map<String, WebSocketAdvanced> webSockets = new ConcurrentHashMap<String, WebSocketAdvanced>();
+   public static Map<String, WebSocketAdvanced> webSockets = new ConcurrentHashMap<String, WebSocketAdvanced>();
 
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
 
+        Intent serviceIntent = new Intent(cordova.getActivity(), WebsocketService.class);
+        cordova.getActivity().startService(serviceIntent);
         Log.d(TAG, "Initializing CordovaWebsocketPlugin");
     }
 

@@ -14,7 +14,7 @@ import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
+import static com.homecontrol.CordovaWebsocketPlugin.webSockets;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class WebsocketService extends Service {
@@ -62,7 +62,12 @@ public class WebsocketService extends Service {
                     // display toast at every 10 second
 
 
-                    Toast.makeText(getApplicationContext(), "websocket"+webScoket, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "websocket"+webScoket, Toast.LENGTH_SHORT).show();
+                    for(CordovaWebsocketPlugin.WebSocketAdvanced ws : webSockets.values()) {
+
+                        // ws.close(1000, "Disconnect");
+                         Toast.makeText(getApplicationContext(), "websocket"+""+ws.webSocketId, Toast.LENGTH_SHORT).show();
+                     }
                 }
             });
         }
