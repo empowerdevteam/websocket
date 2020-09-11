@@ -152,7 +152,7 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
     }
     }
 
-    private class WebSocketAdvanced extends WebSocketListener {
+    public class WebSocketAdvanced extends WebSocketListener {
         
         private WebSocket webSocket;
         private CallbackContext callbackContext;
