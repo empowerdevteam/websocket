@@ -223,14 +223,60 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
                     public void run() {
                         self.webSocket = client.newWebSocket(request, self);
                         // Trigger shutdown of the dispatcher's executor so this process can exit cleanly.
-                        self.client.dispatcher().executorService().shutdown();
+                        //self.client.dispatcher().executorService().shutdown();
                     }
                 });
+                reconnect();
             } catch (JSONException e) {
                 Log.e(TAG, e.getMessage());
             }
         }
 
+        //Recoonect
+        public void reconnect() {
+            final WebSocketAdvanced self = this;
+            cordova.getThreadPool().execute(new Runnable() {
+               @Override
+               public void run() {
+                   while (true) {
+                       try {
+                           if (self.webSocket != null) {
+                               self.webSocket.close(1000, "Disconnect");
+                               self.webSocket = null;
+                           }
+                           self.webSocket = client.newWebSocket(request, self);
+                           self.socketStatus = SocketStatus.CONNECTED;
+                           // self.send("Hii12345");
+                           // self.webSocket.send("");
+                           Log.i("Reconnect123******", "Connected");
+                           // Trigger shutdown of the dispatcher's executor so this process can exit cleanly.
+
+
+
+                       } catch (Exception e) {
+                           // Toast.makeText(cordova.getContext(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
+                           self.webSocket = null;
+                           self.socketStatus = SocketStatus.FAILURE;
+                           Log.i("exceptionNetwork******", "" + e.getMessage());
+                       }
+                       try {
+                           Thread.sleep(30000);
+                       } catch (InterruptedException e) {
+                           e.printStackTrace();
+                       }
+                   }
+
+                   //self.client.dispatcher().executorService().shutdown();
+
+
+
+               }
+
+
+
+
+            });
+        }
         public void setRecvListener(final CallbackContext recvCallbackContext, boolean flushRecvBuffer) {
             this.recvCallbackContext = recvCallbackContext;
             
