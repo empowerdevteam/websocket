@@ -75,7 +75,7 @@ public class WebsocketService extends Service {
                                 // ws.client.dispatcher().executorService().shutdown();
                                 // ws.socketStatus = SocketStatus.CONNECTED;
                              } else {
-                                 Toast.makeText(getApplicationContext(), "websocket" + "" + ws.webSocketId, Toast.LENGTH_SHORT).show();
+                               //  Toast.makeText(getApplicationContext(), "websocket" + "" + ws.webSocketId, Toast.LENGTH_SHORT).show();
  
                              }
                          }catch (Exception e){
