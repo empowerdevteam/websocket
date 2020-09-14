@@ -226,7 +226,7 @@ public class CordovaWebsocketPlugin extends CordovaPlugin {
                         //self.client.dispatcher().executorService().shutdown();
                     }
                 });
-                reconnect();
+               // reconnect();
             } catch (JSONException e) {
                 Log.e(TAG, e.getMessage());
             }
